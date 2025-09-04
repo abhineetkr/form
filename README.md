@@ -1,3 +1,50 @@
+## Java Selenium script: fill form and take screenshot
+
+This minimal Maven project launches `https://formstepmulti.netlify.app/`, enters first and last name, clicks Next three times, and saves a screenshot.
+
+### Prerequisites
+
+- Java 17+
+- Maven 3.8+
+- Chromium or Chrome installed. On Ubuntu, `chromium-browser` from apt is fine.
+
+### Install dependencies (Ubuntu)
+
+```bash
+sudo apt-get update -y
+sudo apt-get install -y maven chromium fonts-liberation libnss3
+```
+
+### Build
+
+```bash
+cd /workspace
+mvn -DskipTests package
+```
+
+### Run
+
+By default, it will save to `/workspace/screenshot.png` and use `chromium-browser`.
+
+```bash
+mvn exec:java \
+  -DfirstName=Alice \
+  -DlastName=Smith \
+  -DchromiumBinary=/usr/bin/chromium-browser \
+  -Dscreenshot=/workspace/screenshot.png
+```
+
+If you use Google Chrome instead, set its binary path, e.g.:
+
+```bash
+mvn exec:java -DchromiumBinary=/usr/bin/google-chrome
+```
+
+### Notes
+
+- Uses Selenium 4 with Selenium Manager to provision the matching ChromeDriver automatically.
+- Headless mode is enabled; remove `--headless=new` in `FormStepRunner` to see the browser UI.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
